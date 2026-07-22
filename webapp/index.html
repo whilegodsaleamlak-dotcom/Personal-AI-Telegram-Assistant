@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Saleamlak - Personal Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen active">
+            <div class="header">
+                <div class="avatar">SA</div>
+                <h1>Saleamlak Aschalew</h1>
+                <p class="subtitle">Junior Project Manager & Web Developer</p>
+            </div>
+            <div class="grid">
+                <button class="grid-btn" onclick="showScreen('profile')">
+                    <span class="icon">👤</span>
+                    <span>Profile</span>
+                </button>
+                <button class="grid-btn" onclick="showScreen('settings')">
+                    <span class="icon">⚙️</span>
+                    <span>Settings</span>
+                </button>
+                <button class="grid-btn" onclick="showScreen('favorites')">
+                    <span class="icon">📂</span>
+                    <span>Favorites</span>
+                </button>
+                <button class="grid-btn" onclick="showScreen('recent')">
+                    <span class="icon">🕐</span>
+                    <span>Recent</span>
+                </button>
+                <button class="grid-btn" onclick="showScreen('stats')">
+                    <span class="icon">📊</span>
+                    <span>Stats</span>
+                </button>
+                <button class="grid-btn" onclick="showScreen('help')">
+                    <span class="icon">❓</span>
+                    <span>Help</span>
+                </button>
+            </div>
+            <button class="ai-btn" onclick="showScreen('ai-chat')">
+                <span class="icon">🤖</span> Ask AI
+            </button>
+        </div>
+
+        <!-- Profile Screen -->
+        <div id="profile" class="screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>👤 Profile</h2>
+            </div>
+            <div class="profile-grid">
+                <button class="profile-item" onclick="showSubScreen('p-about')">
+                    <span>👤</span> About
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-skills')">
+                    <span>💼</span> Skills
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-projects')">
+                    <span>💻</span> Projects
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-education')">
+                    <span>🎓</span> Education
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-experience')">
+                    <span>💼</span> Experience
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-services')">
+                    <span>🛠</span> Services
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-contact')">
+                    <span>📧</span> Contact
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-goals')">
+                    <span>🎯</span> Goals
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-achievements')">
+                    <span>🏆</span> Achievements
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-portfolio')">
+                    <span>🌐</span> Portfolio
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-github')">
+                    <span>🐙</span> GitHub
+                </button>
+                <button class="profile-item" onclick="showSubScreen('p-cv')">
+                    <span>📄</span> Download CV
+                </button>
+            </div>
+        </div>
+
+        <!-- Profile Sub Screens -->
+        <div id="p-about" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>👤 About</h2>
+            </div>
+            <div class="content-card">
+                <p>I am a junior project manager with a strong interest in planning, teamwork, and digital projects. I am passionate about creating digital experiences and focus on clear communication, basic planning, and continuous improvement through real project experience.</p>
+                <div class="info-row"><span>🗣 Languages:</span> English, Amharic</div>
+                <div class="info-row"><span>❤️ Interests:</span> Web development, project management, UI/UX design</div>
+            </div>
+        </div>
+
+        <div id="p-skills" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>💼 Skills</h2>
+            </div>
+            <div class="content-card">
+                <h3>Front-end Development</h3>
+                <div class="skill-bar"><div class="skill-name">HTML/CSS <span>95%</span></div><div class="bar"><div class="fill" style="width:95%"></div></div></div>
+                <div class="skill-bar"><div class="skill-name">JavaScript <span>85%</span></div><div class="bar"><div class="fill" style="width:85%"></div></div></div>
+                <div class="skill-bar"><div class="skill-name">React & Next.js <span>80%</span></div><div class="bar"><div class="fill" style="width:80%"></div></div></div>
+                <h3>Back-end Development</h3>
+                <div class="skill-bar"><div class="skill-name">Node.js <span>75%</span></div><div class="bar"><div class="fill" style="width:75%"></div></div></div>
+                <div class="skill-bar"><div class="skill-name">PHP <span>75%</span></div><div class="bar"><div class="fill" style="width:75%"></div></div></div>
+                <div class="skill-bar"><div class="skill-name">SQL <span>65%</span></div><div class="bar"><div class="fill" style="width:65%"></div></div></div>
+                <div class="skill-bar"><div class="skill-name">MongoDB <span>65%</span></div><div class="bar"><div class="fill" style="width:65%"></div></div></div>
+                <h3>Tools & Other</h3>
+                <div class="skill-bar"><div class="skill-name">Git & GitHub <span>85%</span></div><div class="bar"><div class="fill" style="width:85%"></div></div></div>
+                <div class="skill-bar"><div class="skill-name">UI/UX Design <span>85%</span></div><div class="bar"><div class="fill" style="width:85%"></div></div></div>
+                <div class="skill-bar"><div class="skill-name">Project Management <span>80%</span></div><div class="bar"><div class="fill" style="width:80%"></div></div></div>
+            </div>
+        </div>
+
+        <div id="p-projects" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>💻 Projects</h2>
+            </div>
+            <div class="content-card">
+                <div class="project-card">
+                    <h3>🛒 Gulit E-commerce Web App</h3>
+                    <p>Full-stack e-commerce platform</p>
+                    <span class="tag">E-commerce</span>
+                </div>
+                <div class="project-card">
+                    <h3>🏫 School Result Management</h3>
+                    <p>Student result tracking system</p>
+                    <span class="tag">Education</span>
+                </div>
+                <div class="project-card">
+                    <h3>📝 To Do List</h3>
+                    <p>Productivity task management app</p>
+                    <span class="tag">Productivity</span>
+                </div>
+                <div class="project-card">
+                    <h3>💰 Income Expense Tracker</h3>
+                    <p>Personal finance management tool</p>
+                    <span class="tag">Finance</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-education" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>🎓 Education</h2>
+            </div>
+            <div class="content-card">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Diploma</h3>
+                        <span class="date">2023 - 2025</span>
+                        <p>Misrak Polytechnic College</p>
+                        <p class="detail">Web Development & Database Administration</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Degree</h3>
+                        <span class="date">2026 - First year</span>
+                        <p>GAGE University College</p>
+                        <p class="detail">Computer Science</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-experience" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>💼 Experience</h2>
+            </div>
+            <div class="content-card">
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-content">
+                        <h3>Junior Project Manager</h3>
+                        <span class="date">2025 - Present</span>
+                        <p>Tech Innovations Inc.</p>
+                        <p class="detail">Assisted in planning, coordinating tasks, tracking progress</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Lead Developer</h3>
+                        <span class="date">2019 - 2022</span>
+                        <p>Digital Solutions Corp.</p>
+                        <p class="detail">Web development and project delivery</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-services" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>🛠 Services</h2>
+            </div>
+            <div class="content-card">
+                <div class="service-card">
+                    <span class="service-icon">🎨</span>
+                    <h3>Creative Branding</h3>
+                    <p>Simple and effective brand identities</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">📐</span>
+                    <h3>Design Systems</h3>
+                    <p>Structured, user-friendly layouts</p>
+                </div>
+                <div class="service-card">
+                    <span class="service-icon">💻</span>
+                    <h3>Digital Platforms</h3>
+                    <p>Reliable websites and web apps</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-contact" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>📧 Contact</h2>
+            </div>
+            <div class="content-card">
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <div><strong>Email</strong><br>whilegodsaleamlak@gmail.com</div>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <div><strong>Phone</strong><br>+251 930 220 301<br>+251 944 015 457</div>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <div><strong>Address</strong><br>Addis Ababa, Figa Traffic Lights</div>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🌐</span>
+                    <div><strong>Portfolio</strong><br><a href="https://saleamlak.vercel.app" target="_blank">saleamlak.vercel.app</a></div>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🐙</span>
+                    <div><strong>GitHub</strong><br><a href="https://github.com/saleamlak" target="_blank">github.com/saleamlak</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-goals" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>🎯 Career Goals</h2>
+            </div>
+            <div class="content-card">
+                <p>Grow into a professional project manager, contribute meaningfully to digital projects, and continuously improve technical and leadership skills.</p>
+            </div>
+        </div>
+
+        <div id="p-achievements" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>🏆 Achievements</h2>
+            </div>
+            <div class="content-card">
+                <div class="achievement-item">✅ Completed 2+ Projects</div>
+                <div class="achievement-item">🎓 Diploma in Web Development & Database Administration</div>
+                <div class="achievement-item">📚 Currently pursuing Computer Science degree</div>
+            </div>
+        </div>
+
+        <div id="p-portfolio" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>🌐 Portfolio</h2>
+            </div>
+            <div class="content-card center">
+                <p>View my full portfolio website:</p>
+                <a href="https://saleamlak.vercel.app" target="_blank" class="link-btn">saleamlak.vercel.app</a>
+            </div>
+        </div>
+
+        <div id="p-github" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>🐙 GitHub</h2>
+            </div>
+            <div class="content-card center">
+                <p>View my GitHub repositories:</p>
+                <a href="https://github.com/saleamlak" target="_blank" class="link-btn">github.com/saleamlak</a>
+            </div>
+        </div>
+
+        <div id="p-cv" class="screen sub-screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>📄 Download CV</h2>
+            </div>
+            <div class="content-card center">
+                <p>Download my resume:</p>
+                <a href="https://saleamlak.vercel.app" target="_blank" class="link-btn">Download CV</a>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settings" class="screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>⚙️ Settings</h2>
+            </div>
+            <div class="content-card">
+                <div class="setting-row">
+                    <span>🔔 Notifications</span>
+                    <label class="toggle">
+                        <input type="checkbox" id="notif-toggle" checked onchange="toggleSetting('notifications')">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-row">
+                    <span>🌐 Language</span>
+                    <button class="small-btn" id="lang-btn" onclick="toggleSetting('language')">EN</button>
+                </div>
+                <div class="setting-row">
+                    <span>🗑 Clear My Data</span>
+                    <button class="small-btn danger" onclick="clearAllData()">Clear</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Favorites Screen -->
+        <div id="favorites" class="screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>📂 Favorites</h2>
+            </div>
+            <div class="content-card">
+                <div id="fav-list"></div>
+                <div id="fav-empty" class="empty-state">No favorites yet.</div>
+                <div class="fav-input">
+                    <input type="text" id="fav-input" placeholder="Add a favorite item...">
+                    <button class="small-btn" onclick="addFavorite()">Add</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Screen -->
+        <div id="recent" class="screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>🕐 Recent Activity</h2>
+            </div>
+            <div class="content-card">
+                <div id="recent-list"></div>
+                <div id="recent-empty" class="empty-state">No recent activity.</div>
+            </div>
+        </div>
+
+        <!-- Stats Screen -->
+        <div id="stats" class="screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>📊 Stats</h2>
+            </div>
+            <div class="content-card">
+                <div class="stat-item"><span>💬 Total Chats:</span> <strong id="stat-chats">0</strong></div>
+                <div class="stat-item"><span>📂 Favorites:</span> <strong id="stat-favs">0</strong></div>
+                <div class="stat-item"><span>🕐 Actions:</span> <strong id="stat-recent">0</strong></div>
+                <div class="stat-item"><span>📅 First Seen:</span> <strong id="stat-first">-</strong></div>
+            </div>
+        </div>
+
+        <!-- Help Screen -->
+        <div id="help" class="screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>❓ Help</h2>
+            </div>
+            <div class="content-card">
+                <h3>Navigation</h3>
+                <p>Use the buttons to navigate. Every section has a Back button.</p>
+                <h3>Profile</h3>
+                <p>View all information about Saleamlak - skills, projects, education, and more.</p>
+                <h3>AI Chat</h3>
+                <p>Type any question about Saleamlak and get instant answers.</p>
+                <h3>Favorites</h3>
+                <p>Save items you like for quick access later.</p>
+            </div>
+        </div>
+
+        <!-- AI Chat Screen -->
+        <div id="ai-chat" class="screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>🤖 AI Chat</h2>
+            </div>
+            <div class="chat-container">
+                <div id="chat-messages" class="chat-messages">
+                    <div class="chat-bubble bot">Hi! Ask me anything about Saleamlak.</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" placeholder="Type your question..." onkeypress="if(event.key==='Enter')sendChat()">
+                    <button class="send-btn" onclick="sendChat()">➤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

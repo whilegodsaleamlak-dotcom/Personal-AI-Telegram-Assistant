@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+venv/
+.venv/
+user_data.json
+.vercel/
+node_modules/
+.DS_Store
+Thumbs.db
