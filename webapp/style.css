@@ -685,3 +685,132 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.history-msg {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.history-msg.history-user {
+    border-left: 3px solid var(--primary);
+}
+
+.history-msg.history-bot {
+    border-left: 3px solid var(--accent);
+}
+
+.history-role {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary-light);
+    margin-bottom: 4px;
+}
+
+.history-bot .history-role {
+    color: var(--accent);
+}
+
+.history-text {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.history-time {
+    font-size: 11px;
+    color: var(--text-muted);
+    opacity: 0.5;
+    margin-top: 6px;
+}
+
+.admin-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-muted);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+
+.admin-btn:hover, .admin-btn:active {
+    background: var(--card-hover);
+    border-color: var(--primary);
+}
+
+.admin-url-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.admin-url-row input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+}
+
+.admin-url-row input:focus {
+    border-color: var(--primary);
+}
+
+.admin-status {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.admin-user-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.admin-user-item:hover, .admin-user-item:active {
+    border-color: var(--primary);
+    background: var(--card-hover);
+}
+
+.admin-user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.admin-user-info strong {
+    font-size: 14px;
+    color: var(--text);
+}
+
+.admin-user-info span {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.admin-user-date {
+    font-size: 11px;
+    color: var(--text-muted);
+}

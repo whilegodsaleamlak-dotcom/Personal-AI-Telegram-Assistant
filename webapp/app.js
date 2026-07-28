@@ -21,6 +21,7 @@ function loadData() {
         settings: { notifications: true, language: "en" },
         chat_count: 0,
         first_seen: new Date().toISOString(),
+        chat_history: [],
     };
 }
 
@@ -46,6 +47,7 @@ function showScreen(id) {
     if (id === "recent") renderRecent();
     if (id === "stats") renderStats();
     if (id === "settings") renderSettings();
+    if (id === "chat-history") renderChatHistory();
     addRecent("Viewed: " + id);
 }
 
@@ -158,7 +160,132 @@ function clearAllData() {
         renderRecent();
         renderStats();
         renderSettings();
+        renderChatHistory();
     }
+}
+
+function renderChatHistory() {
+    const data = loadData();
+    const list = document.getElementById("chat-history-list");
+    const empty = document.getElementById("chat-history-empty");
+    const history = data.chat_history || [];
+    if (history.length === 0) {
+        list.innerHTML = "";
+        empty.style.display = "block";
+        return;
+    }
+    empty.style.display = "none";
+    list.innerHTML = history
+        .map((msg) => {
+            const t = msg.time ? new Date(msg.time).toLocaleString() : "";
+            const isUser = msg.role === "user";
+            return `<div class="history-msg ${isUser ? "history-user" : "history-bot"}">
+                <div class="history-role">${isUser ? "You" : "AI"}</div>
+                <div class="history-text">${escapeHtml(msg.content)}</div>
+                <div class="history-time">${t}</div>
+            </div>`;
+        })
+        .join("");
+    const container = document.getElementById("chat-history-list");
+    container.scrollTop = container.scrollHeight;
+}
+
+function clearChatHistory() {
+    if (confirm("Clear all chat history?")) {
+        const data = loadData();
+        data.chat_history = [];
+        saveData(data);
+        renderChatHistory();
+    }
+}
+
+function getAdminUrl() {
+    return localStorage.getItem("admin_api_url") || "";
+}
+
+function setAdminUrl(url) {
+    localStorage.setItem("admin_api_url", url);
+}
+
+async function loadAdminData() {
+    const input = document.getElementById("admin-api-url");
+    const url = input.value.trim();
+    if (!url) {
+        document.getElementById("admin-status").textContent = "Please enter the bot API URL.";
+        return;
+    }
+    setAdminUrl(url);
+    document.getElementById("admin-status").textContent = "Loading...";
+
+    try {
+        const res = await fetch(url + "/api/users");
+        const users = await res.json();
+        const list = document.getElementById("admin-users-list");
+        const empty = document.getElementById("admin-empty");
+
+        if (!users || users.length === 0) {
+            list.innerHTML = "";
+            empty.style.display = "block";
+            empty.textContent = "No users found.";
+            document.getElementById("admin-status").textContent = "";
+            return;
+        }
+
+        empty.style.display = "none";
+        list.innerHTML = users
+            .map(
+                (u) =>
+                    `<div class="admin-user-item" onclick="loadUserHistory('${u.user_id}')">
+                        <div class="admin-user-info">
+                            <strong>User ${u.user_id}</strong>
+                            <span>${u.message_count} messages | ${u.favorites} favorites</span>
+                        </div>
+                        <span class="admin-user-date">Since ${u.first_seen ? new Date(u.first_seen).toLocaleDateString() : "?"}</span>
+                    </div>`
+            )
+            .join("");
+        document.getElementById("admin-status").textContent = `Loaded ${users.length} users.`;
+    } catch (err) {
+        document.getElementById("admin-status").textContent = "Error: " + err.message;
+    }
+}
+
+async function loadUserHistory(userId) {
+    const url = getAdminUrl();
+    if (!url) return;
+
+    try {
+        const res = await fetch(url + "/api/history/" + userId);
+        const history = await res.json();
+        const panel = document.getElementById("admin-history-panel");
+        const title = document.getElementById("admin-history-title");
+        const msgs = document.getElementById("admin-history-messages");
+
+        title.textContent = "Chat History - User " + userId;
+        panel.style.display = "block";
+
+        if (!history || history.length === 0) {
+            msgs.innerHTML = '<div class="empty-state">No messages.</div>';
+            return;
+        }
+
+        msgs.innerHTML = history
+            .map((msg) => {
+                const isUser = msg.role === "user";
+                const t = msg.time ? new Date(msg.time).toLocaleString() : "";
+                return `<div class="history-msg ${isUser ? "history-user" : "history-bot"}">
+                    <div class="history-role">${isUser ? "User" : "Bot"} (${t})</div>
+                    <div class="history-text">${escapeHtml(msg.content)}</div>
+                </div>`;
+            })
+            .join("");
+    } catch (err) {
+        document.getElementById("admin-status").textContent = "Error loading history: " + err.message;
+    }
+}
+
+function closeAdminHistory() {
+    document.getElementById("admin-history-panel").style.display = "none";
 }
 
 async function sendChat() {
@@ -168,14 +295,51 @@ async function sendChat() {
     input.value = "";
 
     const chatDiv = document.getElementById("chat-messages");
+
+    const professionalKeywords = [
+        "skill", "project", "education", "experience", "service", "contact",
+        "email", "phone", "portfolio", "github", "cv", "resume", "hire",
+        "work", "develop", "code", "program", "web", "app", "design",
+        "manager", "goal", "achievement", "about", "technology", "collaborate",
+        "team", "plan", "build", "create", "framework", "language", "database",
+        "frontend", "backend", "fullstack", "react", "node", "php", "sql",
+        "html", "css", "javascript", "python", "university", "college",
+        "diploma", "degree", "job", "career", "company", "client", "freelance",
+        "project management", "agile", "scrum", "who are you", "tell me about",
+        "what do you do", "what can you do", "profile", "interest", "career",
+        "certificate", "qualification", "study", "graduate", "employ", "salary",
+        "demo", "portfolio", "link", "url", "website",
+    ];
+    const isPersonal = !professionalKeywords.some((kw) =>
+        msg.toLowerCase().includes(kw)
+    );
+
     chatDiv.innerHTML += `<div class="chat-bubble user">${escapeHtml(msg)}</div>`;
-    chatDiv.innerHTML += `<div class="chat-bubble bot" id="loading-dots"><div class="loading-dots"><span></span><span></span><span></span></div></div>`;
     chatDiv.scrollTop = chatDiv.scrollHeight;
 
     const data = loadData();
     data.chat_count = (data.chat_count || 0) + 1;
+    if (!data.chat_history) data.chat_history = [];
+    data.chat_history.push({ role: "user", content: msg, time: new Date().toISOString() });
     saveData(data);
     addRecent("AI chat: " + msg.substring(0, 30));
+
+    if (isPersonal) {
+        chatDiv.innerHTML += `<div class="chat-bubble bot">For personal questions, please use the <strong>Telegram bot</strong> for a private response.</div>`;
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+        const d = loadData();
+        if (!d.chat_history) d.chat_history = [];
+        d.chat_history.push({
+            role: "assistant",
+            content: "For personal questions, please use the Telegram bot for a private response.",
+            time: new Date().toISOString(),
+        });
+        saveData(d);
+        return;
+    }
+
+    chatDiv.innerHTML += `<div class="chat-bubble bot" id="loading-dots"><div class="loading-dots"><span></span><span></span><span></span></div></div>`;
+    chatDiv.scrollTop = chatDiv.scrollHeight;
 
     try {
         const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -185,7 +349,7 @@ async function sendChat() {
                 Authorization: "Bearer " + getApiKey(),
             },
             body: JSON.stringify({
-                model: "google/gemini-3.1-flash-lite-preview",
+                model: "google/gemini-3.1-flash-lite",
                 messages: [
                     {
                         role: "system",
@@ -208,6 +372,11 @@ async function sendChat() {
         if (loadingEl) loadingEl.remove();
 
         chatDiv.innerHTML += `<div class="chat-bubble bot">${escapeHtml(reply)}</div>`;
+
+        const d = loadData();
+        if (!d.chat_history) d.chat_history = [];
+        d.chat_history.push({ role: "assistant", content: reply, time: new Date().toISOString() });
+        saveData(d);
     } catch (err) {
         const loadingEl = document.getElementById("loading-dots");
         if (loadingEl) loadingEl.remove();

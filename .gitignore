@@ -8,3 +8,4 @@ user_data.json
 node_modules/
 .DS_Store
 Thumbs.db
+bot.log

@@ -36,6 +36,10 @@
                     <span class="icon">📊</span>
                     <span>Stats</span>
                 </button>
+                <button class="grid-btn" onclick="showScreen('chat-history')">
+                    <span class="icon">💬</span>
+                    <span>Chat History</span>
+                </button>
                 <button class="grid-btn" onclick="showScreen('help')">
                     <span class="icon">❓</span>
                     <span>Help</span>
@@ -43,6 +47,9 @@
             </div>
             <button class="ai-btn" onclick="showScreen('ai-chat')">
                 <span class="icon">🤖</span> Ask AI
+            </button>
+            <button class="admin-btn" onclick="showScreen('admin-panel')">
+                <span class="icon">🛡</span> Admin Panel
             </button>
         </div>
 
@@ -417,6 +424,43 @@
                     <input type="text" id="chat-input" placeholder="Type your question..." onkeypress="if(event.key==='Enter')sendChat()">
                     <button class="send-btn" onclick="sendChat()">➤</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Chat History Screen -->
+        <div id="chat-history" class="screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>💬 My Chat History</h2>
+            </div>
+            <div class="content-card">
+                <div id="chat-history-list"></div>
+                <div id="chat-history-empty" class="empty-state">No chat history yet. Start a conversation in AI Chat!</div>
+                <div style="margin-top:12px; text-align:center;">
+                    <button class="small-btn danger" onclick="clearChatHistory()">Clear History</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel Screen -->
+        <div id="admin-panel" class="screen">
+            <div class="screen-header">
+                <button class="back-btn" onclick="goBack()">← Back</button>
+                <h2>🛡 Admin Panel</h2>
+            </div>
+            <div class="content-card">
+                <div class="admin-url-row">
+                    <input type="text" id="admin-api-url" placeholder="Bot API URL (e.g. http://localhost:5000)">
+                    <button class="small-btn" onclick="loadAdminData()">Load</button>
+                </div>
+                <div id="admin-status" class="admin-status"></div>
+                <div id="admin-users-list"></div>
+                <div id="admin-empty" class="empty-state">Enter your bot's API URL and click Load.</div>
+            </div>
+            <div id="admin-history-panel" class="content-card" style="display:none;">
+                <h3 id="admin-history-title">Chat History</h3>
+                <div id="admin-history-messages"></div>
+                <button class="small-btn" style="margin-top:12px;" onclick="closeAdminHistory()">Close</button>
             </div>
         </div>
     </div>
